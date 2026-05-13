@@ -21,3 +21,5 @@
 !*.cs
 !*.json
 
+/AGENTS.md
+/.editorconfig

@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.PotionPools;
 using MegaCrit.Sts2.Core.Models.RelicPools;
+using Renko.Scripts.Cards;
 using Renko.Scripts.Pools;
 using System;
 
@@ -13,8 +14,7 @@ namespace Renko.Scripts.Character;
 // PlaceholderCharacterModel 是占位角色基类。
 // 没有手动指定的角色资源，会根据 PlaceholderID 借用游戏内已有角色资源。
 // 如果后续要完全自定义立绘、选择界面、能量 UI、音效等资源，可以改用 CustomCharacterModel。
-public class RenkoCharacter : PlaceholderCharacterModel
-{
+public class RenkoCharacter : PlaceholderCharacterModel {
 	// 非强制字段。用于统一保存角色 ID。
 	// 后续卡池、遗物池、本地化、资源路径等地方可以复用，避免到处手写 "Renko"。
 	public const string CharacterId = "Renko";
@@ -64,12 +64,10 @@ public class RenkoCharacter : PlaceholderCharacterModel
 	public override CardPoolModel CardPool => ModelDb.CardPool<RenkoCardPool>();
 
 	// 角色专属遗物池。
-	// 现在还在临时使用 ManboRelicPool，后续应该替换成 RenkoRelicPool。
 	public override RelicPoolModel RelicPool => ModelDb.RelicPool<RenkoRelicPool>();
 
 	// 角色药水池。
-	// SharedPotionPool 表示先使用游戏/基础库提供的通用药水池。
-	public override PotionPoolModel PotionPool => ModelDb.PotionPool<SharedPotionPool>();
+	public override PotionPoolModel PotionPool => ModelDb.PotionPool<RenkoPotionPool>();
 
 	// 以下是自定义资源路径。
 	// 如果不重写这些属性，PlaceholderCharacterModel 会根据 PlaceholderID 自动提供占位资源。
